@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dialed Dawg" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Dialed Dawg</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash" class="splash">
+  <div class="splash-logo">
+    <div class="splash-icon">🐺</div>
+    <div class="splash-title">DIALED<br>DAWG</div>
+    <div class="splash-sub">ELITE FITNESS OS</div>
+  </div>
+</div>
+
+<!-- APP WRAPPER -->
+<div id="app" class="app hidden">
+
+  <!-- TOP HEADER -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="top-greeting" id="greeting">Good morning</span>
+      <span class="top-name" id="userName">Athlete</span>
+    </div>
+    <div class="top-bar-right">
+      <button class="icon-btn" id="notifBtn">🔔</button>
+      <button class="icon-btn avatar-btn" id="profileBtn">
+        <span id="avatarInitial">A</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE CONTAINER -->
+  <main class="pages">
+
+    <!-- ===== HOME PAGE ===== -->
+    <section class="page active" id="page-home">
+      <div class="page-scroll">
+
+        <!-- Motivational Quote -->
+        <div class="quote-banner">
+          <div class="quote-text" id="dailyQuote">"The only bad workout is the one that didn't happen."</div>
+        </div>
+
+        <!-- Calorie Ring -->
+        <div class="cal-hero">
+          <div class="cal-ring-wrap">
+            <svg class="cal-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#1a1a1a" stroke-width="10"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#c8102e" stroke-width="10"
+                stroke-dasharray="327" stroke-dashoffset="82" stroke-linecap="round"
+                transform="rotate(-90 60 60)" id="calRingCircle"/>
+            </svg>
+            <div class="cal-ring-center">
+              <div class="cal-remaining" id="calRemaining">1,840</div>
+              <div class="cal-label">kcal left</div>
+            </div>
+          </div>
+          <div class="cal-stats">
+            <div class="cal-stat">
+              <div class="cs-val" id="calGoal">2,400</div>
+              <div class="cs-lbl">Goal</div>
+            </div>
+            <div class="cal-stat">
+              <div class="cs-val" id="calEaten">560</div>
+              <div class="cs-lbl">Eaten</div>
+            </div>
+            <div class="cal-stat">
+              <div class="cs-val" id="calBurned">220</div>
+              <div class="cs-lbl">Burned</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Macro Bars -->
+        <div class="card">
+          <div class="card-head">MACROS</div>
+          <div class="macro-bars">
+            <div class="macro-bar-row">
+              <span class="mb-name">Protein</span>
+              <div class="mb-track"><div class="mb-fill protein" id="proteinFill" style="width:42%"></div></div>
+              <span class="mb-val" id="proteinVal">84 / 200g</span>
+            </div>
+            <div class="macro-bar-row">
+              <span class="mb-name">Carbs</span>
+              <div class="mb-track"><div class="mb-fill carbs" id="carbsFill" style="width:28%"></div></div>
+              <span class="mb-val" id="carbsVal">70 / 250g</span>
+            </div>
+            <div class="macro-bar-row">
+              <span class="mb-name">Fat</span>
+              <div class="mb-track"><div class="mb-fill fat" id="fatFill" style="width:55%"></div></div>
+              <span class="mb-val" id="fatVal">44 / 80g</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="quick-stats">
+          <div class="qs-card" id="qs-water">
+            <div class="qs-icon">💧</div>
+            <div class="qs-val" id="waterVal">5</div>
+            <div class="qs-lbl">cups water</div>
+          </div>
+          <div class="qs-card" id="qs-sleep">
+            <div class="qs-icon">😴</div>
+            <div class="qs-val" id="sleepVal">7.5</div>
+            <div class="qs-lbl">hrs sleep</div>
+          </div>
+          <div class="qs-card" id="qs-streak">
+            <div class="qs-icon">🔥</div>
+            <div class="qs-val" id="streakVal">12</div>
+            <div class="qs-lbl">day streak</div>
+          </div>
+          <div class="qs-card" id="qs-weight">
+            <div class="qs-icon">⚖️</div>
+            <div class="qs-val" id="weightVal">182</div>
+            <div class="qs-lbl">lbs</div>
+          </div>
+        </div>
+
+        <!-- Today's Workout -->
+        <div class="card workout-today-card">
+          <div class="card-head">TODAY'S WORKOUT
+            <span class="badge-pill" id="todayWorkoutBadge">PUSH</span>
+          </div>
+          <div class="workout-today-list" id="todayWorkoutList">
+            <div class="wt-exercise">
+              <span class="wt-name">Bench Press</span>
+              <span class="wt-sets">4 × 8</span>
+            </div>
+            <div class="wt-exercise">
+              <span class="wt-name">Incline DB Press</span>
+              <span class="wt-sets">3 × 10</span>
+            </div>
+            <div class="wt-exercise">
+              <span class="wt-name">Lateral Raises</span>
+              <span class="wt-sets">4 × 15</span>
+            </div>
+          </div>
+          <button class="btn-primary full-btn" id="startWorkoutBtn">START WORKOUT</button>
+        </div>
+
+        <!-- Recovery Score -->
+        <div class="card recovery-card">
+          <div class="card-head">RECOVERY SCORE</div>
+          <div class="recovery-display">
+            <div class="rec-score-big" id="recoveryScore">78</div>
+            <div class="rec-score-label">/ 100</div>
+            <div class="rec-bar-wrap">
+              <div class="rec-bar" id="recoveryBar" style="width:78%"></div>
+            </div>
+            <div class="rec-status" id="recoveryStatus">Good – Ready to Train</div>
+          </div>
+        </div>
+
+        <!-- PRs Row -->
+        <div class="card">
+          <div class="card-head">RECENT PRs 🏆</div>
+          <div class="pr-list" id="homePRList">
+            <div class="pr-item">
+              <span class="pr-ex">Bench Press</span>
+              <span class="pr-val">225 lbs × 5</span>
+              <span class="pr-date">3 days ago</span>
+            </div>
+            <div class="pr-item">
+              <span class="pr-ex">Squat</span>
+              <span class="pr-val">315 lbs × 3</span>
+              <span class="pr-date">1 week ago</span>
+            </div>
+            <div class="pr-item">
+              <span class="pr-ex">Deadlift</span>
+              <span class="pr-val">405 lbs × 1</span>
+              <span class="pr-date">2 weeks ago</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Checklist -->
+        <div class="card">
+          <div class="card-head">DAILY CHECKLIST</div>
+          <div class="checklist" id="dailyChecklist">
+            <label class="check-item"><input type="checkbox" class="check-inp" data-key="workout"> <span>Complete workout</span></label>
+            <label class="check-item"><input type="checkbox" class="check-inp" data-key="protein"> <span>Hit protein goal</span></label>
+            <label class="check-item"><input type="checkbox" class="check-inp" data-key="water"> <span>8 cups of water</span></label>
+            <label class="check-item"><input type="checkbox" class="check-inp" data-key="sleep"> <span>Log sleep</span></label>
+            <label class="check-item"><input type="checkbox" class="check-inp" data-key="weight"> <span>Log body weight</span></label>
+          </div>
+        </div>
+
+        <!-- Quick Add Buttons -->
+        <div class="quick-add-row">
+          <button class="qa-btn" id="quickAddMeal">+ Log Meal</button>
+          <button class="qa-btn" id="quickAddWeight">+ Log Weight</button>
+          <button class="qa-btn" id="quickAddWater">+ Water</button>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== WORKOUT PAGE ===== -->
+    <section class="page" id="page-workout">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">WORKOUT SPLITS</h1>
+          <button class="icon-btn" id="addSplitBtn">＋</button>
+        </div>
+
+        <!-- Active Split -->
+        <div class="card">
+          <div class="card-head">ACTIVE SPLIT
+            <span class="badge-pill green">PPL 6-Day</span>
+          </div>
+          <div class="split-days" id="splitDays">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Exercise Library Search -->
+        <div class="card">
+          <div class="card-head">EXERCISE LIBRARY</div>
+          <div class="search-wrap">
+            <input type="text" class="search-inp" id="exerciseSearch" placeholder="Search exercises..." />
+          </div>
+          <div class="muscle-filter" id="muscleFilter">
+            <button class="mf-btn active" data-muscle="all">All</button>
+            <button class="mf-btn" data-muscle="chest">Chest</button>
+            <button class="mf-btn" data-muscle="back">Back</button>
+            <button class="mf-btn" data-muscle="legs">Legs</button>
+            <button class="mf-btn" data-muscle="shoulders">Shoulders</button>
+            <button class="mf-btn" data-muscle="arms">Arms</button>
+            <button class="mf-btn" data-muscle="core">Core</button>
+          </div>
+          <div class="exercise-list" id="exerciseList">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Active Workout Session (hidden by default) -->
+        <div class="active-workout-overlay hidden" id="activeWorkoutOverlay">
+          <div class="aw-header">
+            <div class="aw-title" id="awTitle">PUSH DAY</div>
+            <div class="aw-timer" id="awTimer">00:00</div>
+            <button class="aw-finish" id="finishWorkoutBtn">FINISH</button>
+          </div>
+          <div class="aw-exercises" id="awExercises">
+            <!-- Generated by JS -->
+          </div>
+          <button class="btn-secondary" id="addExToWorkout">+ Add Exercise</button>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== PROGRESS PAGE ===== -->
+    <section class="page" id="page-progress">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">PROGRESS</h1>
+        </div>
+
+        <!-- Big 3 PRs -->
+        <div class="big3-row">
+          <div class="big3-card">
+            <div class="b3-icon">🏋️</div>
+            <div class="b3-name">BENCH</div>
+            <div class="b3-val" id="pr-bench">225 lbs</div>
+            <div class="b3-est">Est. 1RM: 261 lbs</div>
+          </div>
+          <div class="big3-card">
+            <div class="b3-icon">🦵</div>
+            <div class="b3-name">SQUAT</div>
+            <div class="b3-val" id="pr-squat">315 lbs</div>
+            <div class="b3-est">Est. 1RM: 344 lbs</div>
+          </div>
+          <div class="big3-card">
+            <div class="b3-icon">💪</div>
+            <div class="b3-name">DEADLIFT</div>
+            <div class="b3-val" id="pr-deadlift">405 lbs</div>
+            <div class="b3-est">Est. 1RM: 405 lbs</div>
+          </div>
+        </div>
+
+        <!-- Body Stats -->
+        <div class="card">
+          <div class="card-head">BODY STATS
+            <button class="btn-tiny" id="logBodyStatsBtn">LOG</button>
+          </div>
+          <div class="body-stat-grid">
+            <div class="bs-item"><div class="bs-val" id="bsWeight">182 lbs</div><div class="bs-lbl">Weight</div></div>
+            <div class="bs-item"><div class="bs-val" id="bsBF">14%</div><div class="bs-lbl">Body Fat</div></div>
+            <div class="bs-item"><div class="bs-val" id="bsChest">42"</div><div class="bs-lbl">Chest</div></div>
+            <div class="bs-item"><div class="bs-val" id="bsWaist">33"</div><div class="bs-lbl">Waist</div></div>
+            <div class="bs-item"><div class="bs-val" id="bsArms">15.5"</div><div class="bs-lbl">Arms</div></div>
+            <div class="bs-item"><div class="bs-val" id="bsLegs">24"</div><div class="bs-lbl">Legs</div></div>
+          </div>
+        </div>
+
+        <!-- Weight Chart -->
+        <div class="card">
+          <div class="card-head">WEIGHT TREND</div>
+          <canvas class="prog-chart" id="weightChart"></canvas>
+        </div>
+
+        <!-- Strength Progress -->
+        <div class="card">
+          <div class="card-head">STRENGTH GAINS</div>
+          <div class="strength-exercises" id="strengthList">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Progress Photos -->
+        <div class="card">
+          <div class="card-head">PROGRESS PHOTOS
+            <button class="btn-tiny" id="addPhotoBtn">+ ADD</button>
+          </div>
+          <div class="photo-gallery" id="photoGallery">
+            <div class="photo-placeholder">
+              <div class="pp-icon">📸</div>
+              <div class="pp-text">Add your first progress photo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== RECOVERY PAGE ===== -->
+    <section class="page" id="page-recovery">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">RECOVERY</h1>
+        </div>
+
+        <!-- Overall Recovery Score -->
+        <div class="card recovery-hero-card">
+          <div class="rh-score" id="rhScore">78</div>
+          <div class="rh-label">RECOVERY SCORE</div>
+          <div class="rh-status" id="rhStatus">Good – Train Upper Body</div>
+        </div>
+
+        <!-- Body Heatmap -->
+        <div class="card">
+          <div class="card-head">MUSCLE FATIGUE MAP</div>
+          <div class="body-diagram-wrap">
+            <div class="body-diagram">
+              <!-- Front body SVG-style diagram -->
+              <div class="bd-label">FRONT</div>
+              <svg class="body-svg" viewBox="0 0 100 200" id="bodySvgFront">
+                <!-- Head -->
+                <circle cx="50" cy="12" r="10" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+                <!-- Neck -->
+                <rect x="46" y="21" width="8" height="8" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="0.5"/>
+                <!-- Chest -->
+                <rect x="32" y="29" width="36" height="28" rx="4" class="muscle-zone" id="front-chest" data-muscle="chest" fill="#1e3a1e"/>
+                <!-- Shoulders -->
+                <ellipse cx="26" cy="35" rx="10" ry="8" class="muscle-zone" id="front-lshoulder" data-muscle="shoulders" fill="#1e3a1e"/>
+                <ellipse cx="74" cy="35" rx="10" ry="8" class="muscle-zone" id="front-rshoulder" data-muscle="shoulders" fill="#1e3a1e"/>
+                <!-- Arms -->
+                <rect x="16" y="43" width="10" height="30" rx="4" class="muscle-zone" id="front-lbicep" data-muscle="arms" fill="#1e1e1e"/>
+                <rect x="74" y="43" width="10" height="30" rx="4" class="muscle-zone" id="front-rbicep" data-muscle="arms" fill="#1e1e1e"/>
+                <!-- Forearms -->
+                <rect x="15" y="74" width="9" height="24" rx="3" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <rect x="76" y="74" width="9" height="24" rx="3" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <!-- Abs -->
+                <rect x="37" y="57" width="11" height="10" rx="2" class="muscle-zone" id="front-abs1" data-muscle="core" fill="#1e1e1e"/>
+                <rect x="51" y="57" width="11" height="10" rx="2" class="muscle-zone" data-muscle="core" fill="#1e1e1e"/>
+                <rect x="37" y="69" width="11" height="10" rx="2" class="muscle-zone" data-muscle="core" fill="#1e1e1e"/>
+                <rect x="51" y="69" width="11" height="10" rx="2" class="muscle-zone" data-muscle="core" fill="#1e1e1e"/>
+                <rect x="37" y="81" width="11" height="8" rx="2" class="muscle-zone" data-muscle="core" fill="#1e1e1e"/>
+                <rect x="51" y="81" width="11" height="8" rx="2" class="muscle-zone" data-muscle="core" fill="#1e1e1e"/>
+                <!-- Quads -->
+                <rect x="33" y="105" width="15" height="50" rx="6" class="muscle-zone" id="front-lquad" data-muscle="legs" fill="#1e1e1e"/>
+                <rect x="52" y="105" width="15" height="50" rx="6" class="muscle-zone" id="front-rquad" data-muscle="legs" fill="#1e1e1e"/>
+                <!-- Calves -->
+                <rect x="34" y="157" width="12" height="30" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <rect x="54" y="157" width="12" height="30" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+              </svg>
+              <div class="bd-label">BACK</div>
+              <svg class="body-svg" viewBox="0 0 100 200" id="bodySvgBack">
+                <circle cx="50" cy="12" r="10" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+                <rect x="46" y="21" width="8" height="8" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="0.5"/>
+                <!-- Back / Traps -->
+                <rect x="32" y="29" width="36" height="32" rx="4" class="muscle-zone" id="back-lats" data-muscle="back" fill="#1e1e1e"/>
+                <!-- Rear Delts -->
+                <ellipse cx="26" cy="35" rx="10" ry="8" class="muscle-zone" data-muscle="shoulders" fill="#1e1e1e"/>
+                <ellipse cx="74" cy="35" rx="10" ry="8" class="muscle-zone" data-muscle="shoulders" fill="#1e1e1e"/>
+                <!-- Triceps -->
+                <rect x="16" y="43" width="10" height="30" rx="4" class="muscle-zone" id="back-ltricep" data-muscle="arms" fill="#1e1e1e"/>
+                <rect x="74" y="43" width="10" height="30" rx="4" class="muscle-zone" data-muscle="arms" fill="#1e1e1e"/>
+                <rect x="15" y="74" width="9" height="24" rx="3" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <rect x="76" y="74" width="9" height="24" rx="3" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <!-- Lower back -->
+                <rect x="37" y="62" width="26" height="28" rx="3" class="muscle-zone" id="back-lower" data-muscle="back" fill="#1e1e1e"/>
+                <!-- Glutes -->
+                <rect x="33" y="90" width="15" height="15" rx="4" class="muscle-zone" data-muscle="glutes" fill="#1e1e1e"/>
+                <rect x="52" y="90" width="15" height="15" rx="4" class="muscle-zone" data-muscle="glutes" fill="#1e1e1e"/>
+                <!-- Hamstrings -->
+                <rect x="33" y="105" width="15" height="50" rx="6" class="muscle-zone" id="back-lham" data-muscle="legs" fill="#1e1e1e"/>
+                <rect x="52" y="105" width="15" height="50" rx="6" class="muscle-zone" data-muscle="legs" fill="#1e1e1e"/>
+                <rect x="34" y="157" width="12" height="30" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <rect x="54" y="157" width="12" height="30" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+              </svg>
+            </div>
+          </div>
+          <!-- Legend -->
+          <div class="fatigue-legend">
+            <div class="fl-item"><div class="fl-dot green"></div>Fresh</div>
+            <div class="fl-item"><div class="fl-dot yellow"></div>Moderate</div>
+            <div class="fl-item"><div class="fl-dot red"></div>Fatigued</div>
+          </div>
+        </div>
+
+        <!-- Muscle Recovery List -->
+        <div class="card">
+          <div class="card-head">MUSCLE STATUS</div>
+          <div class="muscle-recovery-list" id="muscleRecoveryList">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card">
+          <div class="card-head">RECOMMENDATIONS</div>
+          <div class="rec-list" id="recoveryRecs">
+            <div class="rec-rec-item green">✅ Back is fully recovered — great day for deadlifts</div>
+            <div class="rec-rec-item yellow">⚠️ Chest at 60% — light work only</div>
+            <div class="rec-rec-item red">🚫 Shoulders overtrained — rest recommended</div>
+          </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== NUTRITION PAGE ===== -->
+    <section class="page" id="page-nutrition">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">NUTRITION</h1>
+          <button class="btn-tiny" id="openCalcBtn">CALC</button>
+        </div>
+
+        <!-- Daily Summary -->
+        <div class="card nutr-summary-card">
+          <div class="ns-row">
+            <div class="ns-item">
+              <div class="ns-val" id="nCalEaten">560</div>
+              <div class="ns-lbl">Eaten</div>
+            </div>
+            <div class="ns-divider"></div>
+            <div class="ns-item big-item">
+              <div class="ns-val red" id="nCalRemain">1,840</div>
+              <div class="ns-lbl">Remaining</div>
+            </div>
+            <div class="ns-divider"></div>
+            <div class="ns-item">
+              <div class="ns-val" id="nCalBurned">220</div>
+              <div class="ns-lbl">Burned</div>
+            </div>
+          </div>
+          <div class="nutr-prog-bar"><div class="nutr-prog-fill" id="nutrProgFill" style="width:23%"></div></div>
+        </div>
+
+        <!-- Meals -->
+        <div class="meal-sections" id="mealSections">
+          <!-- Breakfast -->
+          <div class="meal-section" data-meal="breakfast">
+            <div class="ms-header">
+              <span class="ms-name">BREAKFAST</span>
+              <span class="ms-cals" id="breakfastCals">0 kcal</span>
+              <button class="ms-add" data-meal="breakfast">＋</button>
+            </div>
+            <div class="ms-foods" id="breakfast-foods"></div>
+          </div>
+          <!-- Lunch -->
+          <div class="meal-section" data-meal="lunch">
+            <div class="ms-header">
+              <span class="ms-name">LUNCH</span>
+              <span class="ms-cals" id="lunchCals">0 kcal</span>
+              <button class="ms-add" data-meal="lunch">＋</button>
+            </div>
+            <div class="ms-foods" id="lunch-foods"></div>
+          </div>
+          <!-- Dinner -->
+          <div class="meal-section" data-meal="dinner">
+            <div class="ms-header">
+              <span class="ms-name">DINNER</span>
+              <span class="ms-cals" id="dinnerCals">0 kcal</span>
+              <button class="ms-add" data-meal="dinner">＋</button>
+            </div>
+            <div class="ms-foods" id="dinner-foods"></div>
+          </div>
+          <!-- Snacks -->
+          <div class="meal-section" data-meal="snacks">
+            <div class="ms-header">
+              <span class="ms-name">SNACKS</span>
+              <span class="ms-cals" id="snacksCals">0 kcal</span>
+              <button class="ms-add" data-meal="snacks">＋</button>
+            </div>
+            <div class="ms-foods" id="snacks-foods"></div>
+          </div>
+        </div>
+
+        <!-- Water Tracker -->
+        <div class="card">
+          <div class="card-head">WATER INTAKE</div>
+          <div class="water-tracker">
+            <div class="water-cups" id="waterCups">
+              <!-- Generated by JS -->
+            </div>
+            <div class="water-goal-text" id="waterGoalText">5 / 8 cups</div>
+          </div>
+        </div>
+
+        <!-- Calorie Calculator Modal (hidden) -->
+        <div class="modal hidden" id="calcModal">
+          <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">CALORIE CALCULATOR</div>
+            <div class="calc-form">
+              <div class="form-row">
+                <label>Age</label>
+                <input type="number" class="form-inp" id="calcAge" placeholder="25" />
+              </div>
+              <div class="form-row">
+                <label>Weight (lbs)</label>
+                <input type="number" class="form-inp" id="calcWeight" placeholder="180" />
+              </div>
+              <div class="form-row">
+                <label>Height (in)</label>
+                <input type="number" class="form-inp" id="calcHeight" placeholder="70" />
+              </div>
+              <div class="form-row">
+                <label>Gender</label>
+                <select class="form-inp" id="calcGender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>Activity Level</label>
+                <select class="form-inp" id="calcActivity">
+                  <option value="1.2">Sedentary</option>
+                  <option value="1.375">Lightly Active</option>
+                  <option value="1.55" selected>Moderately Active</option>
+                  <option value="1.725">Very Active</option>
+                  <option value="1.9">Athlete</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>Goal</label>
+                <select class="form-inp" id="calcGoal">
+                  <option value="cut">Lose Weight</option>
+                  <option value="maintain">Maintain</option>
+                  <option value="bulk">Gain Muscle</option>
+                </select>
+              </div>
+              <button class="btn-primary full-btn" id="runCalcBtn">CALCULATE</button>
+              <div class="calc-results hidden" id="calcResults">
+                <div class="cr-item"><span>Maintenance</span><span id="crMaintain">—</span></div>
+                <div class="cr-item"><span>Recommended</span><span id="crRecommend">—</span></div>
+                <div class="cr-item"><span>Est. change/week</span><span id="crChange">—</span></div>
+                <div class="cr-divider"></div>
+                <div class="cr-item"><span>Protein</span><span id="crProtein">—</span></div>
+                <div class="cr-item"><span>Carbs</span><span id="crCarbs">—</span></div>
+                <div class="cr-item"><span>Fat</span><span id="crFat">—</span></div>
+                <button class="btn-secondary full-btn mt-8" id="applyCalcBtn">APPLY TARGETS</button>
+              </div>
+            </div>
+            <button class="modal-close" id="closeCalcModal">✕</button>
+          </div>
+        </div>
+
+        <!-- Add Food Modal -->
+        <div class="modal hidden" id="addFoodModal">
+          <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">ADD FOOD</div>
+            <div class="calc-form">
+              <div class="form-row">
+                <label>Food Name</label>
+                <input type="text" class="form-inp" id="foodName" placeholder="Chicken Breast" />
+              </div>
+              <div class="form-row">
+                <label>Calories</label>
+                <input type="number" class="form-inp" id="foodCals" placeholder="165" />
+              </div>
+              <div class="form-row">
+                <label>Protein (g)</label>
+                <input type="number" class="form-inp" id="foodProtein" placeholder="31" />
+              </div>
+              <div class="form-row">
+                <label>Carbs (g)</label>
+                <input type="number" class="form-inp" id="foodCarbs" placeholder="0" />
+              </div>
+              <div class="form-row">
+                <label>Fat (g)</label>
+                <input type="number" class="form-inp" id="foodFat" placeholder="3.6" />
+              </div>
+              <div class="favorites-label">QUICK ADD FROM FAVORITES</div>
+              <div class="favorites-list" id="favoritesList"><!-- JS --></div>
+              <button class="btn-primary full-btn" id="saveFoodBtn">ADD FOOD</button>
+            </div>
+            <button class="modal-close" id="closeAddFoodModal">✕</button>
+          </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== PEPTIDES PAGE ===== -->
+    <section class="page" id="page-peptides">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">PEPTIDES</h1>
+          <button class="icon-btn" id="addPeptideBtn">＋</button>
+        </div>
+
+        <!-- Warning Banner -->
+        <div class="warning-banner">
+          ⚠️ For research and informational purposes only. Consult a medical professional.
+        </div>
+
+        <!-- Active Stack -->
+        <div class="card">
+          <div class="card-head">ACTIVE STACK</div>
+          <div class="peptide-stack" id="peptideStack">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Reconstitution Calculator -->
+        <div class="card">
+          <div class="card-head">RECONSTITUTION CALCULATOR</div>
+          <div class="recon-form">
+            <div class="form-row">
+              <label>Vial Size (mg)</label>
+              <input type="number" class="form-inp" id="vialSize" placeholder="5" />
+            </div>
+            <div class="form-row">
+              <label>BAC Water (ml)</label>
+              <input type="number" class="form-inp" id="bacWater" placeholder="2" />
+            </div>
+            <div class="form-row">
+              <label>Desired Dose (mcg)</label>
+              <input type="number" class="form-inp" id="desiredDose" placeholder="200" />
+            </div>
+            <div class="form-row">
+              <label>Syringe (IU)</label>
+              <select class="form-inp" id="syringeUnits">
+                <option value="100">100 IU (1ml)</option>
+                <option value="50">50 IU (0.5ml)</option>
+              </select>
+            </div>
+            <button class="btn-primary full-btn" id="calcReconBtn">CALCULATE DOSE</button>
+            <div class="recon-result hidden" id="reconResult">
+              <div class="rr-main">Draw <span class="rr-val" id="rrUnits">—</span> IU</div>
+              <div class="rr-sub" id="rrml">— ml</div>
+              <div class="rr-sub" id="rrConc">Concentration: — mcg/ml</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Injection Schedule -->
+        <div class="card">
+          <div class="card-head">INJECTION SCHEDULE</div>
+          <div class="inj-schedule" id="injSchedule">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== CALENDAR PAGE ===== -->
+    <section class="page" id="page-calendar">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">CONSISTENCY</h1>
+        </div>
+
+        <!-- Streak Stats -->
+        <div class="streak-hero">
+          <div class="sh-item">
+            <div class="sh-val" id="calStreak">12</div>
+            <div class="sh-lbl">Current Streak</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-val" id="calBestStreak">28</div>
+            <div class="sh-lbl">Best Streak</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-val" id="calConsistency">78%</div>
+            <div class="sh-lbl">This Month</div>
+          </div>
+        </div>
+
+        <!-- Calendar Heatmap -->
+        <div class="card">
+          <div class="card-head" id="calMonthLabel">MAY 2026</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" id="calPrev">‹</button>
+            <div class="cal-grid" id="calGrid"><!-- Generated by JS --></div>
+            <button class="cal-nav-btn" id="calNext">›</button>
+          </div>
+          <div class="cal-legend">
+            <div class="cl-item"><div class="cl-dot workout"></div>Workout</div>
+            <div class="cl-item"><div class="cl-dot calories"></div>Calories Hit</div>
+            <div class="cl-item"><div class="cl-dot rest"></div>Rest Day</div>
+            <div class="cl-item"><div class="cl-dot missed"></div>Missed</div>
+          </div>
+        </div>
+
+        <!-- Monthly Stats -->
+        <div class="card">
+          <div class="card-head">MONTHLY BREAKDOWN</div>
+          <div class="month-stats" id="monthStats">
+            <div class="mstat"><div class="ms-v" id="msWorkouts">18</div><div class="ms-l">Workouts</div></div>
+            <div class="mstat"><div class="ms-v" id="msCalsHit">22</div><div class="ms-l">Calories Hit</div></div>
+            <div class="mstat"><div class="ms-v" id="msRestDays">4</div><div class="ms-l">Rest Days</div></div>
+            <div class="mstat"><div class="ms-v" id="msMissed">2</div><div class="ms-l">Missed</div></div>
+          </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS PAGE ===== -->
+    <section class="page" id="page-settings">
+      <div class="page-scroll">
+        <div class="page-title-bar">
+          <h1 class="page-title">PROFILE</h1>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="card profile-card">
+          <div class="profile-avatar" id="settingsAvatar">A</div>
+          <div class="profile-info">
+            <div class="profile-name" id="settingsName">Athlete</div>
+            <div class="profile-sub">Elite Member</div>
+          </div>
+        </div>
+
+        <!-- Settings Sections -->
+        <div class="settings-list">
+          <div class="settings-section-title">PROFILE</div>
+          <div class="setting-item" id="editNameSetting">
+            <span class="si-label">Display Name</span>
+            <span class="si-value" id="siName">Athlete</span>
+            <span class="si-arrow">›</span>
+          </div>
+          <div class="setting-item" id="editUnitsSetting">
+            <span class="si-label">Units</span>
+            <span class="si-value" id="siUnits">Imperial (lbs)</span>
+            <span class="si-arrow">›</span>
+          </div>
+
+          <div class="settings-section-title">TARGETS</div>
+          <div class="setting-item" id="editCalGoalSetting">
+            <span class="si-label">Calorie Goal</span>
+            <span class="si-value" id="siCalGoal">2,400</span>
+            <span class="si-arrow">›</span>
+          </div>
+          <div class="setting-item" id="editProteinGoalSetting">
+            <span class="si-label">Protein Goal</span>
+            <span class="si-value" id="siProteinGoal">200g</span>
+            <span class="si-arrow">›</span>
+          </div>
+
+          <div class="settings-section-title">DATA</div>
+          <div class="setting-item" id="exportDataSetting">
+            <span class="si-label">Export Data</span>
+            <span class="si-arrow">›</span>
+          </div>
+          <div class="setting-item" id="importDataSetting">
+            <span class="si-label">Import Backup</span>
+            <span class="si-arrow">›</span>
+          </div>
+          <div class="setting-item danger" id="clearDataSetting">
+            <span class="si-label red">Reset All Data</span>
+            <span class="si-arrow">›</span>
+          </div>
+
+          <div class="settings-section-title">APP</div>
+          <div class="setting-item">
+            <span class="si-label">Version</span>
+            <span class="si-value">1.0.0</span>
+          </div>
+          <div class="setting-item">
+            <span class="si-label">Built by Dialed Dawg</span>
+            <span class="si-value">🐺</span>
+          </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-page="home">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-lbl">Home</span>
+    </button>
+    <button class="nav-btn" data-page="workout">
+      <span class="nav-icon">💪</span>
+      <span class="nav-lbl">Workout</span>
+    </button>
+    <button class="nav-btn" data-page="progress">
+      <span class="nav-icon">📈</span>
+      <span class="nav-lbl">Progress</span>
+    </button>
+    <button class="nav-btn" data-page="nutrition">
+      <span class="nav-icon">🥩</span>
+      <span class="nav-lbl">Nutrition</span>
+    </button>
+    <button class="nav-btn" data-page="recovery">
+      <span class="nav-icon">🔄</span>
+      <span class="nav-lbl">Recovery</span>
+    </button>
+    <button class="nav-btn" data-page="calendar">
+      <span class="nav-icon">📅</span>
+      <span class="nav-lbl">Log</span>
+    </button>
+    <button class="nav-btn" data-page="peptides">
+      <span class="nav-icon">💉</span>
+      <span class="nav-lbl">Peptides</span>
+    </button>
+    <button class="nav-btn" data-page="settings">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-lbl">Profile</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- GENERIC INPUT MODAL -->
+<div class="modal hidden" id="inputModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="inputModalTitle">Edit</div>
+    <div class="calc-form">
+      <div class="form-row">
+        <label id="inputModalLabel">Value</label>
+        <input type="text" class="form-inp" id="inputModalField" />
+      </div>
+      <button class="btn-primary full-btn" id="inputModalSave">SAVE</button>
+    </div>
+    <button class="modal-close" id="closeInputModal">✕</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
